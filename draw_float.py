@@ -5,15 +5,6 @@ from pygame import gfxdraw
 from pygame import Color
 
 
-def compute_number_to_circle_point(x, y, point_number, radius):
-    """This function compute a dictonary which associates to each number
-    its coordinates on the circle.
-
-    """
-    angle = (2 * math.pi) / point_number
-    return {i : (int(x + radius * math.sin(i * angle)), \
-                 int(y + radius * math.cos(i * angle))) for i in range(point_number)}
-
 def compute_lines(x_center, y_center, point_number, multiplier):
     """For each point x of the circle, this function computes (x *
     multiplier) mod len(points) and add the coordinates of the source
