@@ -1,8 +1,8 @@
 import math
 import sys 
-import pygame
-from pygame import gfxdraw
-from pygame import Color
+from PIL import Image
+from PIL import ImageDraw
+import multiprocessing
 
 def compute_lines(x_center, y_center, point_number, multiplier):
     """For each point x of the circle, this function computes (x *
@@ -21,40 +21,38 @@ def compute_lines(x_center, y_center, point_number, multiplier):
         res.append(((x_src, y_src), (x_dst, y_dst)))
     return res
 
-def draw_lines(window, x, y, radius, lines):
+def draw_lines(x, y, radius, lines, filename):
     """This function uses gfxdraw to draw the initial circle in white and
     the previously computed lines in red.
 
     """
-    gfxdraw.circle(window, x, y, radius, Color(255, 255, 255,255))
+    img = Image.new('RGB', (2 * x, 2 * y))
+    draw = ImageDraw.Draw(img)
+    draw.ellipse((x - radius, y - radius, x + radius, y + radius))
     for p1, p2 in lines:
-        gfxdraw.line(window, p1[0], p1[1], p2[0], p2[1], Color(255, 0, 0,255))
+        draw.line((p1, p2), fill = (255, 0, 0))
+    img.save(filename)
 
+def iterate_range(steps, param_sequence, folder_name):
+    file_number = 1
+    img_name = folder_name + "/mult_" + "{0:06}".format(file_number) + ".png"
+    pool = multiprocessing.Pool(multiprocessing.cpu_count())
+    
 if __name__ == '__main__':
+    folder_name = sys.argv[1]
     # number of points on the circle.
-    point_number = int(sys.argv[1])
+    point_number = int(sys.argv[2])
     # radius of the circle.
-    radius = int(sys.argv[2])
+    radius = int(sys.argv[3])
     # multiplication table that we draw.
-    multiplier = float(sys.argv[3])
-    pygame.init()
+    multiplier = float(sys.argv[4])
 
     # The size of the window is (2 * radius + 40, 2 * radius + 40) so
     # the center of the screen is (radius + 20, radius + 20)
-    window = pygame.display.set_mode((2 * radius + 40, 2 * radius + 40))
     x_center = y_center = radius + 20
 
     # We compute the coordinates of the points on the circle, the
     # lines between the points and then we draw these lines.
     lines = compute_lines(x_center, y_center, point_number, multiplier)
-    draw_lines(window, x_center, y_center, radius, lines)
-
-    # We save the picture.
-    pygame.image.save(window, 'render.png')
-
-    # The window stays open until it is closed manually by the user.
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit(0)
+    draw_lines(x_center, y_center, radius, lines, 'pil_render.bmp')
 
