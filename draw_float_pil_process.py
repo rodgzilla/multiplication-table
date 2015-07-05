@@ -70,13 +70,15 @@ def iterate_range(steps, x_center, y_center, radius, param_sequence,
     print("Computations done")
     
 if __name__ == '__main__':
-    # the name of the folder in which the images will be saved.
+    # Name of the folder in which the images will be saved.
     folder_name = sys.argv[1]
     # Radius of initial circle.
     radius = int(sys.argv[2])
     # Number of transition the algorithm will to through to get from a
     # formula of the list to the next one.
     steps = int(sys.argv[3])
+    # Parameter sequence of the form [(point_number1, multiplier1),
+    # (point_number2, multiplier2), ...]
     param_sequence = [(100, 17), (300, 17), (300, 47), (100, 47)]
 
     # The size of the window is (2 * radius + 40, 2 * radius + 40) so
