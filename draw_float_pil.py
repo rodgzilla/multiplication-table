@@ -39,13 +39,12 @@ def iterate_range(steps, param_sequence, folder_name):
     pool = multiprocessing.Pool(multiprocessing.cpu_count())
     
 if __name__ == '__main__':
-    folder_name = sys.argv[1]
     # number of points on the circle.
-    point_number = int(sys.argv[2])
+    point_number = int(sys.argv[1])
     # radius of the circle.
-    radius = int(sys.argv[3])
+    radius = int(sys.argv[2])
     # multiplication table that we draw.
-    multiplier = float(sys.argv[4])
+    multiplier = float(sys.argv[3])
 
     # The size of the window is (2 * radius + 40, 2 * radius + 40) so
     # the center of the screen is (radius + 20, radius + 20)
