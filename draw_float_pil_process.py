@@ -79,7 +79,8 @@ if __name__ == '__main__':
     steps = int(sys.argv[3])
     # Parameter sequence of the form [(point_number1, multiplier1),
     # (point_number2, multiplier2), ...]
-    param_sequence = [(100, 17), (300, 17), (300, 47), (100, 47)]
+#    param_sequence = [(300, 2), (300, 5), (200, 1)]
+    param_sequence = [(300, 0), (300, 3)]
 
     # The size of the window is (2 * radius + 40, 2 * radius + 40) so
     # the center of the screen is (radius + 20, radius + 20)
